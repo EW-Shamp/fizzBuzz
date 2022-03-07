@@ -55,21 +55,38 @@ function renderValues(num, intA, intB) {
 //display values on UI
 //display function
 function displayValues(val) {
-    let templateRows = "";
-    for (i = 0; i <= val.length - 1; i++) {
-        let className = "number";
-        if (val[i] === "Fizz") {
-            className = "fizz";
-        } else if (val[i] === "Buzz") {
-            className = "buzz";
-        } else if (val[i] === "FizzBuzz") {
-            className = "fizzbuzz"
-        } else {
-            className = className;
-        }
+    
+    //get table body element
+    let tableBody = document.getElementById("results");
 
-        templateRows += `<tr><td class="${className}">${val[i]}</td></tr>`
+    //get the template row
+    let templateRow = document.getElementById("fbTemplate");
+
+    //clear table
+    tableBody.innerHTML = "";
+
+    for (let i = 0; i < val.length; i += 5) {
+        let tableRow = document.importNode(templateRow.content, true);
+
+
+        let rowCols = tableRow.querySelectorAll("td");
+        rowCols[0].classList.add(val[i]);
+        rowCols[0].textContent = val[i];
+
+        rowCols[1].classList.add(val[i +1]);
+        rowCols[1].textContent = val[i + 1];
+
+        rowCols[2].classList.add(val[i + 2]);        
+        rowCols[2].textContent = val[i + 2];
+
+        rowCols[3].classList.add(val[i + 3]);       
+        rowCols[3].textContent = val[i + 3];
+
+        rowCols[4].classList.add(val[i + 4]);       
+        rowCols[4].textContent = val[i + 4];
+
+
+
+        tableBody.appendChild(tableRow);
     }
-
-    document.getElementById("results").innerHTML = templateRows;
 }

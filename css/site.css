@@ -66,15 +66,15 @@ main>.container {
     color: var(--secondary-color);
 }
 
-.fizz {
+.Fizz {
     color: var(--secondary-color);
 }
 
-.buzz {
+.Buzz {
     color: var(--dark-color);
 }
 
-.fizzbuzz {
+.FizzBuzz {
     color: red;
 }
 
