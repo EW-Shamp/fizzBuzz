@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 
 <head>
-    <title>App Name: A Coding Project by Eric Shamp</title>
+    <title>FizzBuzz: A Coding Project by Eric Shamp</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,7 +22,7 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img src="/img/logo-mark-white.svg" class="d-inline-block align-text-center"
-                 alt="Eric Shamp Logo" height="24"> APP Name</a>
+                 alt="Eric Shamp Logo" height="24"> FizzBuzz</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -39,7 +39,7 @@
                         <a class="nav-link" href="/code.html">The Code</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="https://www.github.com/EW-Shamp/">Git Repo</a>
+                        <a class="nav-link" target="_blank" href="https://www.github.com/EW-Shamp/fizzBuzz">Git Repo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" target="_blank" href="https://ericshamp.us">About</a>
@@ -50,8 +50,44 @@
     </nav>
     <!-- Main Section -->
     <main class="flex-shrink-0">
-        <div class="container">
-
+        <div class="container mt-5">
+            <div class="row row-cols-1 row-cols-lg-2">
+                <div class="col col-lg-4 border-end border-1">
+                    <div>
+                        <h4>FizzBuzz: A Coding Project</h4>
+                        <p>FizzBuzz is a Javascript coding exercise program that retrieves two integers from the user.
+                            Creates a list of numbers 0-100. Checks each number to see if it is a multiple of either of the user's inputed integers.
+                            If the number is a multiple of integer "a" then it is replaced with "Fizz", if the number is a multiple of integer "b" then
+                            it is replaced with "Buzz", finally if the number is a multiple of both integers then it is replaced with "FizzBuzz".</p>
+                    </div>
+                    <div class="border-top border-1 pt-3">
+                        <h4>Instructions</h4>
+                        <div>Enter two integers into the fields and click the button.</div>
+                    </div>
+                </div>
+                <div class="col col-lg-8">
+                    <h4>Enter Values</h4>
+                    <form class="row"> 
+                        <div class="col">
+                            <input id="intA" type="number" class="form-control" value="3" aria-label="First Value" placeholder="3">
+                        </div>
+                        <div class="col">
+                            <input id="intB" type="number" class="form-control" value="5" aria-label="Second Value" placeholder="5">
+                        </div>
+                        <div class="col-12 d-flex justify-content-end mt-2">
+                            <button id="btnSubmit" type="button" class="btn-dark btn-lg">FizzBuzz</button>
+                        </div>
+                    </form>
+                    <h2 class="mt-5 border-bottom border-1">Results</h2>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <tbody id="results">
+                                <!-- Results will show up here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     <!-- Footer Section -->
@@ -88,5 +124,8 @@
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
     </script>
     <script src="/js/site.js"></script>
+    <script>
+        document.getElementById("btnSubmit").addEventListener("click", getValues);
+    </script>
 </body>
 </html>

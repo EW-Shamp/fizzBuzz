@@ -66,6 +66,17 @@ main>.container {
     color: var(--secondary-color);
 }
 
+.fizz {
+    color: var(--secondary-color);
+}
+
+.buzz {
+    color: var(--dark-color);
+}
+
+.fizzbuzz {
+    color: red;
+}
 
 code[class*="language-"],
 pre[class*="language-"] {
