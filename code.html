@@ -57,17 +57,113 @@
                     <div class="col-lg-8">
                         <pre class="line-numbers">
                             <code class="language-javascript">
-                                //call hello world
-                                function helloWorld() {
-                                    alert("hello world");
+                                //retrieve values from form
+                                //validates retrieve data
+                                //control function
+                                function getValues() {
+                                    let intA = document.getElementById("intA").value;
+                                    let intB = document.getElementById("intB").value;
+                                    let numbers = [];
+                                    let value = []
+                                    //validating input
+                                    intA = parseInt(intA);
+                                    intB = parseInt(intB);
+                                
+                                    if (Number.isInteger(intA) && Number.isInteger(intB)) {
+                                        //call generatNumbers to create the list of numbers
+                                        numbers = generatNumbers();
+                                        value = renderValues(numbers, intA, intB);
+                                        displayValues(value);
+                                    } else {
+                                        alert("You must enter in a number");
+                                    }
+                                }
+
+                                //create list of numbers and determine 
+                                //what numbers are multiples of entered 
+                                //values
+                                //logic function(s)
+                                function generatNumbers() {
+                                    let numbers = [];
+                                    for (i = 1; i <= 100; i++) {
+                                        numbers.push(i);
+                                    }
+                                    return numbers;
+                                }
+
+                                function renderValues(num, intA, intB) {
+                                    let arrayData = [];
+                                    for (i = 0; i <= num.length - 1; i++) {
+                                        if (num[i] % intA == 0 && num[i] % intB == 0) {
+                                            arrayData.push("FizzBuzz");
+                                        } else {
+                                            if (num[i] % intA == 0) {
+                                                arrayData.push("Fizz");
+                                            } else {
+                                                if (num[i] % intB == 0) {
+                                                    arrayData.push("Buzz");
+                                                } else {
+                                                    arrayData.push(num[i]);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    return arrayData;
+                                }
+
+                                //display values on UI
+                                //display function
+                                function displayValues(val) {
+                                    let templateRows = "";
+                                    for (i = 0; i <= val.length - 1; i++) {
+                                        let className = "number";
+                                        if (val[i] === "Fizz") {
+                                            className = "fizz";
+                                        } else if (val[i] === "Buzz") {
+                                            className = "buzz";
+                                        } else if (val[i] === "FizzBuzz") {
+                                            className = "fizzbuzz"
+                                        } else {
+                                            className = className;
+                                        }
+                                        //this line does not show correct in Prism due to
+                                        //having both html and javascript elements
+                                        templateRows += `<tr><td class="${className}">${val[i]}</td></tr>`
+                                    }
+                                
+                                    document.getElementById("results").innerHTML = templateRows;
                                 }
                             </code>
                         </pre>
                     </div>
                     <div class="col-lg-4">
-                        <p>The code is structered in one function</p>
-                        <h5>hello world</h5>
-                        <p>hello world is a function that displays and alert with the message hello world</p>
+                        <p>The code is structered four functions</p>
+                        <h5>getValues()</h5>
+                        <p>
+                            This is the main/controller function of the program. First it retrieves
+                            the values from the UI. After-which it parses the values and then 
+                            validates that they are indeed integers, if not it alerts the user to enter in 
+                            numbers. Once the values have been validated it calls the generateNumbers()
+                            function and stores the returned array into the numbers variable. Next it calls the 
+                            renderValues() function and passes it the numbers array and both entered integers
+                            as parameters and stores the returned array as value. Finally it calls the displayValues()
+                            function and passes it value as a parameter.</p>
+                        <h5>generateNumbers()</h5>
+                        <p>This function creates an array filled with numbers from 1 to 100.</p>
+                        <h5>renderValues()</h5>
+                        <p>This function iterates through the array of numbers and checks to see if they are
+                            multiples of either integer or both integers. If the number is not a multiple of either
+                            integer then it pushes the number to the arrayData array. If the is a multiple of both 
+                            integers then it pushes “FizzBuzz” to the arrayData array in place of the number. 
+                            If the number is a multiple of either but not both integers then “Fizz” is pushed to the 
+                            array if the number is a multiple of the first integer and “Buzz” is pushed to array 
+                            if the number is a multiple of the second integer.</p>
+                        <h5>displayValues()</h5>
+                        <p>This function iterates through the value array and assigned a value to the className
+                            variable depending of if the value at the array index is a number, “Fizz”, or “Buzz”.
+                            After which it uses the className and value at that index to create an html string 
+                            and render the innerHTML at the results section of the DOM.</p>
+
                     </div>
                 </div>
             </div>

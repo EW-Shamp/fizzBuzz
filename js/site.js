@@ -60,7 +60,7 @@ function displayValues(val) {
         let className = "number";
         if (val[i] === "Fizz") {
             className = "fizz";
-        } else if (val[i] === "Buss") {
+        } else if (val[i] === "Buzz") {
             className = "buzz";
         } else if (val[i] === "FizzBuzz") {
             className = "fizzbuzz"
