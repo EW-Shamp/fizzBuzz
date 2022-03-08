@@ -58,81 +58,140 @@
                         <pre class="line-numbers">
                             <code class="language-javascript">
                                 //retrieve values from form
-                                //validates retrieve data
-                                //control function
-                                function getValues() {
-                                    let intA = document.getElementById("intA").value;
-                                    let intB = document.getElementById("intB").value;
-                                    let numbers = [];
-                                    let value = []
-                                    //validating input
-                                    intA = parseInt(intA);
-                                    intB = parseInt(intB);
-                                
-                                    if (Number.isInteger(intA) && Number.isInteger(intB)) {
-                                        //call generatNumbers to create the list of numbers
-                                        numbers = generatNumbers();
-                                        value = renderValues(numbers, intA, intB);
-                                        displayValues(value);
+                            //validates retrieve data
+                            //control function
+                            function getValues() {
+                                let intA = document.getElementById("intA").value;
+                                let intB = document.getElementById("intB").value;
+                                let numbers = [];
+                                let value = []
+                                //validating input
+                                intA = parseInt(intA);
+                                intB = parseInt(intB);
+                            
+                                if (Number.isInteger(intA) && Number.isInteger(intB)) {
+                                    //call generatNumbers to create the list of numbers
+                                    numbers = generatNumbers();
+                                    value = renderValuesThree(numbers, intA, intB);
+                                    displayValues(value);
+                                } else {
+                                    alert("You must enter in a number");
+                                }
+                            }
+                            
+                            //create list of numbers and determine 
+                            //what numbers are multiples of entered 
+                            //values
+                            //logic function(s)
+                            function generatNumbers() {
+                                let numbers = [];
+                                for (i = 1; i <= 100; i++) {
+                                    numbers.push(i);
+                                }
+                                return numbers;
+                            }
+                            
+                            // beginner way to sovle FizzBuzz
+                            function renderValues(num, intA, intB) {
+                                let arrayData = [];
+                                for (i = 0; i <= num.length - 1; i++) {
+                                    if (num[i] % intA == 0 && num[i] % intB == 0) {
+                                        arrayData.push("FizzBuzz");
                                     } else {
-                                        alert("You must enter in a number");
-                                    }
-                                }
-
-                                //create list of numbers and determine 
-                                //what numbers are multiples of entered 
-                                //values
-                                //logic function(s)
-                                function generatNumbers() {
-                                    let numbers = [];
-                                    for (i = 1; i <= 100; i++) {
-                                        numbers.push(i);
-                                    }
-                                    return numbers;
-                                }
-
-                                function renderValues(num, intA, intB) {
-                                    let arrayData = [];
-                                    for (i = 0; i <= num.length - 1; i++) {
-                                        if (num[i] % intA == 0 && num[i] % intB == 0) {
-                                            arrayData.push("FizzBuzz");
+                                        if (num[i] % intA == 0) {
+                                            arrayData.push("Fizz");
                                         } else {
-                                            if (num[i] % intA == 0) {
-                                                arrayData.push("Fizz");
+                                            if (num[i] % intB == 0) {
+                                                arrayData.push("Buzz");
                                             } else {
-                                                if (num[i] % intB == 0) {
-                                                    arrayData.push("Buzz");
-                                                } else {
-                                                    arrayData.push(num[i]);
-                                                }
+                                                arrayData.push(num[i]);
                                             }
                                         }
                                     }
-                                    return arrayData;
                                 }
-
-                                //display values on UI
-                                //display function
-                                function displayValues(val) {
-                                    let templateRows = "";
-                                    for (i = 0; i <= val.length - 1; i++) {
-                                        let className = "number";
-                                        if (val[i] === "Fizz") {
-                                            className = "fizz";
-                                        } else if (val[i] === "Buzz") {
-                                            className = "buzz";
-                                        } else if (val[i] === "FizzBuzz") {
-                                            className = "fizzbuzz"
-                                        } else {
-                                            className = className;
-                                        }
-                                        //this line does not show correct in Prism due to
-                                        //having both html and javascript elements
-                                        templateRows += `<tr><td class="${className}">${val[i]}</td></tr>`
-                                    }
+                                return arrayData;
+                            }
+                            
+                            // intermediate way to solve FizzBuzz
+                            function renderValuesTwo(num, intA, intB) {
+                                let arrayData = [];
+                                for (i = 0; i <= num.length; i++) {
                                 
-                                    document.getElementById("results").innerHTML = templateRows;
+                                    Fizz = num[i] % intA == 0;
+                                    Buzz = num[i] % intB == 0;       
+                                
+                                    switch (true)
+                                    {
+                                        case Fizz && Buzz :{
+                                            arrayData.push("FizzBuzz");
+                                            break;
+                                        }
+                                        case Fizz: {
+                                            arrayData.push("Fizz");
+                                            break;
+                                        }
+                                        case Buzz: {
+                                            arrayData.push("Buzz");
+                                            break;
+                                        }
+                                        default: {
+                                            arrayData.push(num[i]);
+                                            break;
+                                        }
+                                    }
                                 }
+                                return arrayData;
+                            }
+                            
+                            //expert way to solve FizzBuzz
+                            function renderValuesThree(num, intA, intB) {
+                                let arrayData = [];
+                                for (i = 0; i <= num.length; i++) {
+                                    let value = ((num[i] % intA == 0 ? "Fizz" : "") + 
+                                    (num[i] % intB == 0 ? "Buzz" : "") || num[i]);
+                                    arrayData.push(value);
+                                }
+                                return arrayData
+                            }
+                            
+                            //display values on UI
+                            //display function
+                            function displayValues(val) {
+                                
+                                //get table body element
+                                let tableBody = document.getElementById("results");
+                            
+                                //get the template row
+                                let templateRow = document.getElementById("fbTemplate");
+                            
+                                //clear table
+                                tableBody.innerHTML = "";
+                            
+                                for (let i = 0; i < val.length; i += 5) {
+                                    let tableRow = document.importNode(templateRow.content, true);
+                                
+                                
+                                    let rowCols = tableRow.querySelectorAll("td");
+                                    rowCols[0].classList.add(val[i]);
+                                    rowCols[0].textContent = val[i];
+                                
+                                    rowCols[1].classList.add(val[i +1]);
+                                    rowCols[1].textContent = val[i + 1];
+                                
+                                    rowCols[2].classList.add(val[i + 2]);        
+                                    rowCols[2].textContent = val[i + 2];
+                                
+                                    rowCols[3].classList.add(val[i + 3]);       
+                                    rowCols[3].textContent = val[i + 3];
+                                
+                                    rowCols[4].classList.add(val[i + 4]);       
+                                    rowCols[4].textContent = val[i + 4];
+                                
+                                
+                                
+                                    tableBody.appendChild(tableRow);
+                                }
+                            }
                             </code>
                         </pre>
                     </div>
@@ -149,7 +208,9 @@
                             as parameters and stores the returned array as value. Finally it calls the displayValues()
                             function and passes it value as a parameter.</p>
                         <h5>generateNumbers()</h5>
-                        <p>This function creates an array filled with numbers from 1 to 100.</p>
+                        <p>This function creates an array filled with numbers from 1 to 100. I did this as a seperate function to highlight
+                            the different ways that is possible to solve the problems in the logic sections.
+                        </p>
                         <h5>renderValues()</h5>
                         <p>This function iterates through the array of numbers and checks to see if they are
                             multiples of either integer or both integers. If the number is not a multiple of either
@@ -158,11 +219,24 @@
                             If the number is a multiple of either but not both integers then “Fizz” is pushed to the 
                             array if the number is a multiple of the first integer and “Buzz” is pushed to array 
                             if the number is a multiple of the second integer.</p>
+                        <h5>renderValuesTwo()</h5>
+                        <p>This is a more intermediate approach to solve FizzBuzz. Here the function iterates 
+                            through the passed in num array. It sets the value of Fizz, Buzz, or both true based
+                            on if the number in the num array is a multiple of either intA or intB. After-which
+                            it performs a switch case to assign the values to arrayData. </p>
+                        <h5>renderValuesThree()</h5>
+                        <p>This is the more expert way of solving FizzBuzz.
+                            The function iterates through the passed in num array. Then uses a ternary operator 
+                            to determine and assign values based on if the number is a multiple of intA, intB, or
+                            both.</p>
                         <h5>displayValues()</h5>
-                        <p>This function iterates through the value array and assigned a value to the className
-                            variable depending of if the value at the array index is a number, “Fizz”, or “Buzz”.
-                            After which it uses the className and value at that index to create an html string 
-                            and render the innerHTML at the results section of the DOM.</p>
+                        <p>This function retrieves the tableBody named “results” and our template
+                            named “fbTemplate”.  It also clears the tableBody at the start of the function.
+                            After the function has retrieved the needed items, it iterates through the array 
+                            that was passed into the function. It uses the importNode to make a copy of the 
+                            template and the querySelectorAll to return a static NodeList, after-which it uses
+                            classList.add to assign the entry a class and the textContent to assign the entry a 
+                            value.</p>
 
                     </div>
                 </div>

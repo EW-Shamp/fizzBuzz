@@ -13,7 +13,7 @@ function getValues() {
     if (Number.isInteger(intA) && Number.isInteger(intB)) {
         //call generatNumbers to create the list of numbers
         numbers = generatNumbers();
-        value = renderValues(numbers, intA, intB);
+        value = renderValuesThree(numbers, intA, intB);
         displayValues(value);
     } else {
         alert("You must enter in a number");
@@ -32,6 +32,7 @@ function generatNumbers() {
     return numbers;
 }
 
+// beginner way to sovle FizzBuzz
 function renderValues(num, intA, intB) {
     let arrayData = [];
     for (i = 0; i <= num.length - 1; i++) {
@@ -50,6 +51,48 @@ function renderValues(num, intA, intB) {
         }
     }
     return arrayData;
+}
+
+// intermediate way to solve FizzBuzz
+function renderValuesTwo(num, intA, intB) {
+    let arrayData = [];
+    for (i = 0; i <= num.length; i++) {
+
+        Fizz = num[i] % intA == 0;
+        Buzz = num[i] % intB == 0;       
+
+        switch (true)
+        {
+            case Fizz && Buzz :{
+                arrayData.push("FizzBuzz");
+                break;
+            }
+            case Fizz: {
+                arrayData.push("Fizz");
+                break;
+            }
+            case Buzz: {
+                arrayData.push("Buzz");
+                break;
+            }
+            default: {
+                arrayData.push(num[i]);
+                break;
+            }
+        }
+    }
+    return arrayData;
+}
+
+//expert way to solve FizzBuzz
+function renderValuesThree(num, intA, intB) {
+    let arrayData = [];
+    for (i = 0; i <= num.length; i++) {
+        let value = ((num[i] % intA == 0 ? "Fizz" : "") + 
+        (num[i] % intB == 0 ? "Buzz" : "") || num[i]);
+        arrayData.push(value);
+    }
+    return arrayData
 }
 
 //display values on UI
